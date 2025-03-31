@@ -47,7 +47,7 @@ class AckleyBenchmark(HPOBenchmark):
         nslack (int, optional): the number of additional slack parameters in the problem.
     """
 
-    def __init__(self, nparams: int = 5, offset: int = -4.0, nslack: int = 0) -> None:
+    def __init__(self, nparams: int = 5, offset: int = -4, nslack: int = 0) -> None:
         self.nparams = nparams
         self.nslack = nslack
         assert offset <= 32.768 and offset >= -32.768, (
@@ -56,7 +56,7 @@ class AckleyBenchmark(HPOBenchmark):
         self.offset = offset
 
     @property
-    def problem(self):  # noqa: D102
+    def problem(self):
         # The original range is simetric (-32.768, 32.768) but we make it less simetric to avoid
         # Grid sampling or QMC sampling to directly hit the optimum...
         domain = (-32.768 + self.offset, 32.768 + self.offset)
@@ -74,9 +74,9 @@ class AckleyBenchmark(HPOBenchmark):
         return problem
 
     @property
-    def run_function(self):  # noqa: D102
+    def run_function(self):
         return functools.partial(run_function, bb_func=ackley)
 
     @property
-    def scorer(self):  # noqa: D102
+    def scorer(self):
         return AckleyScorer(self.nparams, self.nslack, self.offset)

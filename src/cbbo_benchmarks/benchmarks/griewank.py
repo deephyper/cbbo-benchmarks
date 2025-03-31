@@ -8,7 +8,7 @@ from cbbo_benchmarks.scorer import HPOScorer
 from cbbo_benchmarks.utils import run_function
 
 
-def griewank(x, fr=4000):  # noqa: D103
+def griewank(x, fr=4000):
     """Griewank function benchmark.
 
     Description of the function: https://www.sfu.ca/~ssurjano/griewank.html
@@ -46,7 +46,7 @@ class GriewankBenchmark(HPOBenchmark):
         nslack (int, optional): the number of additional slack parameters in the problem.
     """
 
-    def __init__(self, nparams: int = 5, offset: int = -4.0, nslack: int = 0) -> None:
+    def __init__(self, nparams: int = 5, offset: int = -4, nslack: int = 0) -> None:
         self.nparams = nparams
         assert offset <= 600.0 and offset >= -600.0, (
             "offset must be in [-600.0, 600.0] to keep the same maximum value."
@@ -55,7 +55,7 @@ class GriewankBenchmark(HPOBenchmark):
         self.nslack = nslack
 
     @property
-    def problem(self):  # noqa: D102
+    def problem(self):
         domain = (-600.0 + self.offset, 600.0 + self.offset)
         problem = HpProblem()
         for i in range(self.nparams - self.nslack):
@@ -69,9 +69,9 @@ class GriewankBenchmark(HPOBenchmark):
         return problem
 
     @property
-    def run_function(self):  # noqa: D102
+    def run_function(self):
         return functools.partial(run_function, bb_func=griewank)
 
     @property
-    def scorer(self):  # noqa: D102
+    def scorer(self):
         return GriewankScorer(self.nparams, self.nslack, self.offset)

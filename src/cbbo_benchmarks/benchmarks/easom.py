@@ -34,7 +34,7 @@ class EasomBenchmark(HPOBenchmark):
         self.nparams = 2
 
     @property
-    def problem(self):  # noqa: D102
+    def problem(self):
         domain = (-100.0, 100.0)
         problem = HpProblem()
         for i in range(self.nparams):
@@ -42,9 +42,9 @@ class EasomBenchmark(HPOBenchmark):
         return problem
 
     @property
-    def run_function(self):  # noqa: D102
+    def run_function(self):
         return functools.partial(run_function, bb_func=easom)
 
     @property
-    def scorer(self):  # noqa: D102
+    def scorer(self):
         return EasomScorer()

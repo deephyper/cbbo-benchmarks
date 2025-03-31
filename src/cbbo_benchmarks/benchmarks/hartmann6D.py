@@ -8,7 +8,7 @@ from cbbo_benchmarks.scorer import HPOScorer
 from cbbo_benchmarks.utils import run_function
 
 
-def hartmann6D(x):  # noqa: D103
+def hartmann6D(x):
     """Hartmann6D function benchmark.
 
     Description of the function: https://www.sfu.ca/~ssurjano/hart6.html
@@ -62,7 +62,7 @@ class Hartmann6DBenchmark(HPOBenchmark):
         self.nparams = 6
 
     @property
-    def problem(self):  # noqa: D102
+    def problem(self):
         domain = (0.0, 1.0)
         problem = HpProblem()
         for i in range(self.nparams):
@@ -70,9 +70,9 @@ class Hartmann6DBenchmark(HPOBenchmark):
         return problem
 
     @property
-    def run_function(self):  # noqa: D102
+    def run_function(self):
         return functools.partial(run_function, bb_func=hartmann6D)
 
     @property
-    def scorer(self):  # noqa: D102
+    def scorer(self):
         return Hartmann6DScorer()

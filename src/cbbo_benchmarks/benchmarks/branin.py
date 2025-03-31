@@ -37,16 +37,16 @@ class BraninBenchmark(HPOBenchmark):
     """Branin benchmark."""
 
     @property
-    def problem(self):  # noqa: D102
+    def problem(self):
         problem = HpProblem()
         problem.add_hyperparameter((-5.0, 10.0), "x0")
         problem.add_hyperparameter((0.0, 15.0), "x1")
         return problem
 
     @property
-    def run_function(self):  # noqa: D102
+    def run_function(self):
         return functools.partial(run_function, bb_func=branin)
 
     @property
-    def scorer(self):  # noqa: D102
+    def scorer(self):
         return BraninHPOScorer()
