@@ -1,7 +1,29 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.2",
+]
+
 [project]
 name = "cbbo-benchmarks"
 version = "0.1.0"
 description = "C-BBO benchmarks for DeepHyper"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "deephyper>=0.10.0",
+    "numpy>=2.2.4",
+]
+
+[project.scripts]
+benchmark = "cbbo_benchmarks:__main__.main"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+[tool.ruff]
+line-length = 100
