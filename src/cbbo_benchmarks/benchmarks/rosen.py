@@ -4,14 +4,12 @@ Description of the function: https://www.sfu.ca/~ssurjano/rosen.html
 """
 
 import functools
-
 import numpy as np
-from deephyper.hpo import HpProblem
 from scipy.optimize import rosen
-
-from deephyper_benchmark import HPOBenchmark, HPOScorer
-
-from .utils import run_function
+from deephyper.hpo import HpProblem
+from cbbo_benchmarks.benchmark import HPOBenchmark
+from cbbo_benchmarks.scorer import HPOScorer
+from cbbo_benchmarks.utils import run_function
 
 
 def rosen_(x):  # noqa: D103

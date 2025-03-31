@@ -4,13 +4,11 @@ Description of the function: https://www.sfu.ca/~ssurjano/ackley.html
 """
 
 import functools
-
 import numpy as np
 from deephyper.hpo import HpProblem
-
-from deephyper_benchmark import HPOBenchmark, HPOScorer
-
-from .utils import run_function
+from cbbo_benchmarks.benchmark import HPOBenchmark
+from cbbo_benchmarks.scorer import HPOScorer
+from cbbo_benchmarks.utils import run_function
 
 
 def ackley(x, a=20, b=0.2, c=2 * np.pi):
