@@ -70,7 +70,6 @@ source = { editable = "." }
 dependencies = [
     { name = "deephyper" },
     { name = "numpy" },
-    { name = "scipy" },
 ]
 
 [package.dev-dependencies]
@@ -82,7 +81,6 @@ dev = [
 requires-dist = [
     { name = "deephyper", specifier = ">=0.10.0" },
     { name = "numpy", specifier = ">=2.2.4" },
-    { name = "scipy", specifier = ">=1.15.2" },
 ]
 
 [package.metadata.requires-dev]
