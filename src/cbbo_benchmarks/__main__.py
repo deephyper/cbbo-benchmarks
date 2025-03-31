@@ -1,4 +1,4 @@
-"""Main entry point for package."""
+"""Main module for the package."""
 
 import argparse
 from .runner import Runner
@@ -6,7 +6,7 @@ from .plotter import Plotter
 
 
 def main():
-    """here."""
+    """Command line interface for package."""
     parser = argparse.ArgumentParser(description="C-BBO benchmarks tool")
     parser.add_argument("config", help="configuration file")
     parser.add_argument("-p", "--plot", action="store_true", help="plot benchmarks")
@@ -14,7 +14,6 @@ def main():
     args = parser.parse_args()
 
     if args.plot:
-        print("Plot benchmark results")
         plotter = Plotter(args.config)
         plotter.plot()
     else:

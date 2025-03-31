@@ -203,10 +203,3 @@ class Plotter:
         """Plot everything."""
         for benchmark_label, benchmark_config in self.config["benchmark"].items():
             self.plot_benchmark(benchmark_label, benchmark_config)
-
-
-if __name__ == "__main__":
-    parser = create_parser()
-    args = parser.parse_args()
-    plotter = Plotter(args.config)
-    plotter.plot()
