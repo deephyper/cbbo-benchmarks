@@ -1,7 +1,7 @@
 title = "CBBO Benchmark"
 
 [search]
-max_evals = 500
+max_evals = 10
 num_replications = 2
 
 [search.method.random]
@@ -90,37 +90,37 @@ method = "thread"
 num_workers = 1
 
 [benchmark.ackley]
-package = "cbbo_benchmarks.benchmarks.cbbo"
+package = "cbbo_benchmarks.benchmarks"
 name = "AckleyBenchmark"
 
 [benchmark.branin]
-package = "cbbo_benchmarks.benchmarks.cbbo"
+package = "cbbo_benchmarks.benchmarks"
 name = "BraninBenchmark"
 
 [benchmark.griewank]
-package = "cbbo_benchmarks.benchmarks.cbbo"
+package = "cbbo_benchmarks.benchmarks"
 name = "GriewankBenchmark"
 
 [benchmark.hartmann6d]
-package = "cbbo_benchmarks.benchmarks.cbbo"
+package = "cbbo_benchmarks.benchmarks"
 name = "Hartmann6DBenchmark"
 
 [benchmark.levy]
-package = "cbbo_benchmarks.benchmarks.cbbo"
+package = "cbbo_benchmarks.benchmarks"
 name = "LevyBenchmark"
 
 [benchmark.michal]
-package = "cbbo_benchmarks.benchmarks.cbbo"
+package = "cbbo_benchmarks.benchmarks"
 name = "MichalBenchmark"
 
 [benchmark.rosen]
-package = "cbbo_benchmarks.benchmarks.cbbo"
+package = "cbbo_benchmarks.benchmarks"
 name = "RosenBenchmark"
 
 [benchmark.schwefel]
-package = "cbbo_benchmarks.benchmarks.cbbo"
+package = "cbbo_benchmarks.benchmarks"
 name = "SchwefelBenchmark"
 
 [benchmark.shekel]
-package = "cbbo_benchmarks.benchmarks.cbbo"
+package = "cbbo_benchmarks.benchmarks"
 name = "ShekelBenchmark"
