@@ -1,24 +1,26 @@
-import abc
+import functools
+from abc import ABC, abstractmethod
+from deephyper.hpo import HpProblem
+from cbbo_benchmarks.scorer import HPOScorer
 
 
-class Benchmark(abc.ABC):
-    """Base class for benchmarks."""
-
-
-class HPOBenchmark(Benchmark):
+class HPOBenchmark(ABC):
     """Base class for Hyperparameter optimization benchmarks."""
 
     @property
-    @abc.abstractmethod
-    def problem(self):
+    @abstractmethod
+    def problem(self) -> HpProblem:
         """The benchmark hyperparameter problem."""
+        pass
 
     @property
-    @abc.abstractmethod
-    def run_function(self):
+    @abstractmethod
+    def run_function(self) -> functools.partial:
         """The benchmark hyperparameter run_function."""
+        pass
 
     @property
-    @abc.abstractmethod
-    def scorer(self):
+    @abstractmethod
+    def scorer(self) -> HPOScorer:
         """The benchmark hyperparameter scorer."""
+        pass
