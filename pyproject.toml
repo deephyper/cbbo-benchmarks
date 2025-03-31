@@ -1,0 +1,7 @@
+[project]
+name = "cbbo-benchmarks"
+version = "0.1.0"
+description = "C-BBO benchmarks for DeepHyper"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
