@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-benchmark = "cbbo_benchmarks:__main__.main"
+benchmark = "cbbo_benchmarks:cli.main"
 
 [tool.pyright]
 venvPath = "."
