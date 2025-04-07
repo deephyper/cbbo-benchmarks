@@ -1,31 +1,13 @@
 """Module to run CBBO benchmarks."""
 
-import argparse
 import importlib
 import logging
 import os
 import pathlib
 import uuid
-
 import tomllib
 from deephyper.evaluator import Evaluator
 from deephyper.evaluator.callback import TqdmCallback
-
-
-def get_attr_from_package(path):
-    """Performs a relative import."""
-    path = path.split(".")
-    package = ".".join(path[:-1])
-    name = path[-1]
-    attr = importlib.import_module(name, package)
-    return attr
-
-
-def create_parser():
-    """Creates the parser."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--config")
-    return parser
 
 
 class Runner:

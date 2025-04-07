@@ -1,37 +1,18 @@
 """Module to run CBBO benchmarks."""
 
-import argparse
 import importlib
 import os
 import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import tomllib
 from deephyper.analysis import figure_size
-from deephyper.analysis.hpo import (
-    read_results_from_csv,
-)
-
-
-def get_attr_from_package(path):
-    """Performs a relative import."""
-    path = path.split(".")
-    package = ".".join(path[:-1])
-    name = path[-1]
-    attr = importlib.import_module(name, package)
-    return attr
-
-
-def create_parser():
-    """Creates the parser."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--config")
-    return parser
+from deephyper.analysis.hpo import read_results_from_csv
 
 
 class Plotter:
+    """Plotter class to plot benchmark results."""
+
     def __init__(self, config_path):
         with open(config_path, "rb") as f:
             self.config = tomllib.load(f)
