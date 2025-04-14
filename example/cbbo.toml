@@ -1,5 +1,20 @@
 title = "CBBO Benchmark"
 
+benchmark = [
+    "Ackley",
+    "Branin",
+    "Hartmann6D",
+    "Levy",
+    "Michal",
+    "Rosen",
+    "Schwefel",
+    "Shekel",
+]
+
+[evaluator]
+method = "thread"
+num_workers = 1
+
 [search]
 max_evals = 10
 num_replications = 2
@@ -84,43 +99,3 @@ kwargs.sampler = "TPE"
 # package = "deephyper_benchmark.hpo.optuna"
 # name = "OptunaSearch"
 # kwargs.sampler = "SMAC"
-
-[evaluator]
-method = "thread"
-num_workers = 1
-
-[benchmark.ackley]
-package = "cbbo_benchmarks.benchmarks"
-name = "AckleyBenchmark"
-
-[benchmark.branin]
-package = "cbbo_benchmarks.benchmarks"
-name = "BraninBenchmark"
-
-[benchmark.griewank]
-package = "cbbo_benchmarks.benchmarks"
-name = "GriewankBenchmark"
-
-[benchmark.hartmann6d]
-package = "cbbo_benchmarks.benchmarks"
-name = "Hartmann6DBenchmark"
-
-[benchmark.levy]
-package = "cbbo_benchmarks.benchmarks"
-name = "LevyBenchmark"
-
-[benchmark.michal]
-package = "cbbo_benchmarks.benchmarks"
-name = "MichalBenchmark"
-
-[benchmark.rosen]
-package = "cbbo_benchmarks.benchmarks"
-name = "RosenBenchmark"
-
-[benchmark.schwefel]
-package = "cbbo_benchmarks.benchmarks"
-name = "SchwefelBenchmark"
-
-[benchmark.shekel]
-package = "cbbo_benchmarks.benchmarks"
-name = "ShekelBenchmark"
