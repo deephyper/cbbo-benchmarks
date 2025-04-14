@@ -1,6 +1,5 @@
 """Module to run CBBO benchmarks."""
 
-import importlib
 import os
 import pathlib
 import matplotlib.pyplot as plt
@@ -8,6 +7,7 @@ import numpy as np
 import tomllib
 from deephyper.analysis import figure_size
 from deephyper.analysis.hpo import read_results_from_csv
+from . import benchmarks
 
 
 class Plotter:
@@ -157,16 +157,13 @@ class Plotter:
         plt.savefig(fname, dpi=300)
         plt.close()
 
-    def plot_benchmark(self, label, config):
+    def plot_benchmark(self, label, class_name):
         """Plot a single benchmark."""
         self.runs_bench_path = os.path.join(self.runs_path, label)
         self.plots_bench_path = os.path.join(self.plots_path, label)
         pathlib.Path(self.plots_bench_path).mkdir(parents=False, exist_ok=True)
 
-        bench = getattr(
-            importlib.import_module(config["package"]),
-            config["name"],
-        )()
+        bench = getattr(benchmarks, class_name)()
 
         data = {}
         for search_label, search_config in self.config["search"]["method"].items():
@@ -182,5 +179,7 @@ class Plotter:
 
     def plot(self):
         """Plot everything."""
-        for benchmark_label, benchmark_config in self.config["benchmark"].items():
-            self.plot_benchmark(benchmark_label, benchmark_config)
+        for benchmark_name in self.config["benchmark"]:
+            label = benchmark_name.lower()
+            class_name = benchmark_name + "Benchmark"
+            self.plot_benchmark(label, class_name)

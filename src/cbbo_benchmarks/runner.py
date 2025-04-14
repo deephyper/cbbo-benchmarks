@@ -8,6 +8,7 @@ import uuid
 import tomllib
 from deephyper.evaluator import Evaluator
 from deephyper.evaluator.callback import TqdmCallback
+from . import benchmarks
 
 
 class Runner:
@@ -20,8 +21,10 @@ class Runner:
     def __init__(self, config_path: str):
         with open(config_path, "rb") as f:
             self.config = tomllib.load(f)
+
         self.root_path = os.getcwd()
         self.runs_path = os.path.join(self.root_path, "runs")
+
         pathlib.Path(self.runs_path).mkdir(parents=False, exist_ok=True)
 
     def create_evaluator(self, run_function, tqdm_label):  # noqa: D102
@@ -70,22 +73,16 @@ class Runner:
             print(f"Starting replica {i + 1}/{num_replications}: {label}")
             self.run_search_replica(bench, max_evals, f"{label}/{replica_id}", config)
 
-    def run_benchmark(self, label, config):
-        """Runs a benchmark instance."""
-        print(f"Starting benchmark: {label}")
-
-        Benchmark = getattr(
-            importlib.import_module(config["package"]),
-            config["name"],
-        )
-        bench = Benchmark()
-
-        for search_label, search_config in self.config["search"]["method"].items():
-            self.run_search(bench, f"{label}/{search_label}", search_config)
-
     def run(self):
-        """Runs everything."""
+        """Run benchmarks along with search replications."""
         print(f"Running: {self.config['title']}")
 
-        for benchmark_label, benchmark_config in self.config["benchmark"].items():
-            self.run_benchmark(benchmark_label, benchmark_config)
+        for benchmark_name in self.config["benchmark"]:
+            print("Starting benchmark:", benchmark_name)
+
+            class_name = benchmark_name + "Benchmark"
+            bench = getattr(benchmarks, class_name)()
+
+            for search_label, search_config in self.config["search"]["method"].items():
+                label = f"{benchmark_name.lower()}/{search_label}"
+                self.run_search(bench, label, search_config)
