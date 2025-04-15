@@ -75,7 +75,7 @@ class Runner:
         print(f"Running: {self.config['title']}")
 
         for bench_config in self.config["benchmark"]:
-            name = bench_config["name"]
+            name = bench_config["name"] if isinstance(bench_config, dict) else bench_config
             print("\nStarting benchmark:", name)
 
             bench = get_benchmark(bench_config)
