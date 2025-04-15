@@ -1,5 +1,6 @@
 """Module to run CBBO benchmarks."""
 
+import inspect
 import os
 import pathlib
 import matplotlib.pyplot as plt
@@ -157,19 +158,20 @@ class Plotter:
         plt.savefig(fname, dpi=300)
         plt.close()
 
-    def plot_benchmark(self, label, class_name):
+    def plot_benchmark(self, label, bench):
         """Plot a single benchmark."""
         self.runs_bench_path = os.path.join(self.runs_path, label)
         self.plots_bench_path = os.path.join(self.plots_path, label)
         pathlib.Path(self.plots_bench_path).mkdir(parents=False, exist_ok=True)
 
-        bench = getattr(benchmarks, class_name)()
-
         data = {}
+
         for search_label, search_config in self.config["search"]["method"].items():
             data_path = os.path.join(self.runs_bench_path, search_label)
+
             if not os.path.exists(data_path):
                 continue
+
             results = self.load_search_results(data_path)
             data[search_label] = results
 
@@ -179,7 +181,19 @@ class Plotter:
 
     def plot(self):
         """Plot everything."""
-        for benchmark_name in self.config["benchmark"]:
-            label = benchmark_name.lower()
-            class_name = benchmark_name + "Benchmark"
-            self.plot_benchmark(label, class_name)
+        for bench_config in self.config["benchmark"]:
+            name = bench_config["name"]
+            label = name.lower()
+
+            # Get benchmark class associated with the name
+            class_name = name + "Benchmark"
+            bench_class = getattr(benchmarks, class_name)
+
+            # Inspect class constructor and create dict of input arguments
+            sig = inspect.signature(bench_class)
+            kwargs = {k: bench_config[k] for k in sig.parameters if k in bench_config}
+
+            # Init benchmark class using input args from config
+            bench = bench_class(**kwargs)
+
+            self.plot_benchmark(label, bench)
