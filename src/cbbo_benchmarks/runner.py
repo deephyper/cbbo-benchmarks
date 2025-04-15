@@ -1,6 +1,7 @@
 """Module to run CBBO benchmarks."""
 
 import importlib
+import inspect
 import logging
 import os
 import pathlib
@@ -77,12 +78,21 @@ class Runner:
         """Run benchmarks along with search replications."""
         print(f"Running: {self.config['title']}")
 
-        for benchmark_name in self.config["benchmark"]:
-            print("Starting benchmark:", benchmark_name)
+        for bench_config in self.config["benchmark"]:
+            name = bench_config["name"]
+            print("\nStarting benchmark:", name)
 
-            class_name = benchmark_name + "Benchmark"
-            bench = getattr(benchmarks, class_name)()
+            # Get benchmark class associated with the name
+            class_name = name + "Benchmark"
+            bench_class = getattr(benchmarks, class_name)
+
+            # Inspect class constructor and create dict of input arguments
+            sig = inspect.signature(bench_class)
+            kwargs = {k: bench_config[k] for k in sig.parameters if k in bench_config}
+
+            # Init benchmark class using input args from config
+            bench = bench_class(**kwargs)
 
             for search_label, search_config in self.config["search"]["method"].items():
-                label = f"{benchmark_name.lower()}/{search_label}"
+                label = f"{name.lower()}/{search_label}"
                 self.run_search(bench, label, search_config)

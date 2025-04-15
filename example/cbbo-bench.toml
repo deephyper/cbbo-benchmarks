@@ -1,0 +1,68 @@
+# This configuration uses a table array for the benchmarks.
+
+title = "CBBO Benchmark"
+
+[evaluator]
+method = "thread"
+num_workers = 1
+
+[search]
+max_evals = 10
+num_replications = 2
+
+[search.method.random]
+package = "deephyper.hpo"
+name = "RandomSearch"
+
+[search.method.cbo_093]
+package = "deephyper.hpo"
+name = "CBO"
+kwargs.acq_optimizer = "ga"
+
+[search.method.cbo]
+package = "deephyper.hpo"
+name = "CBO"
+kwargs.acq_optimizer = "ga"
+
+[search.method.tpe]
+package = "cbbo_benchmarks.optuna"
+name = "OptunaSearch"
+kwargs.sampler = "TPE"
+
+[[benchmark]]
+name = "Ackley"
+nparams = 5
+offset = -4
+nslack = 0
+
+[[benchmark]]
+name = "Branin"
+
+[[benchmark]]
+name = "Griewank"
+nparams = 5
+offset = -4
+nslack = 0
+
+[[benchmark]]
+name = "Hartmann6D"
+
+[[benchmark]]
+name = "Levy"
+nparams = 5
+
+[[benchmark]]
+name = "Michal"
+nparams = 5
+
+[[benchmark]]
+name = "Rosen"
+nparams = 5
+
+[[benchmark]]
+name = "Schwefel"
+nparams = 5
+
+[[benchmark]]
+name = "Shekel"
+nparams = 4
