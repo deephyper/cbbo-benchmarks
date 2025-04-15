@@ -5,7 +5,7 @@ import numpy as np
 from deephyper.hpo import HpProblem
 from cbbo_benchmarks.benchmark import HPOBenchmark
 from cbbo_benchmarks.scorer import HPOScorer
-from cbbo_benchmarks.utils import run_function
+from cbbo_benchmarks.utils import run_func
 
 
 def hartmann6D(x):
@@ -71,7 +71,7 @@ class Hartmann6DBenchmark(HPOBenchmark):
 
     @property
     def run_function(self):
-        return functools.partial(run_function, bb_func=hartmann6D)
+        return functools.partial(run_func, bb_func=hartmann6D)
 
     @property
     def scorer(self):

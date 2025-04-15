@@ -1,15 +1,13 @@
-"""Module to run CBBO benchmarks."""
+"""Module for Runner class."""
 
 import importlib
-import inspect
 import logging
 import os
 import pathlib
 import uuid
-import tomllib
 from deephyper.evaluator import Evaluator
 from deephyper.evaluator.callback import TqdmCallback
-from . import benchmarks
+from .config import get_config, get_benchmark
 
 
 class Runner:
@@ -20,9 +18,7 @@ class Runner:
     """
 
     def __init__(self, config_path: str):
-        with open(config_path, "rb") as f:
-            self.config = tomllib.load(f)
-
+        self.config = get_config(config_path)
         self.root_path = os.getcwd()
         self.runs_path = os.path.join(self.root_path, "runs")
 
@@ -82,17 +78,9 @@ class Runner:
             name = bench_config["name"]
             print("\nStarting benchmark:", name)
 
-            # Get benchmark class associated with the name
-            class_name = name + "Benchmark"
-            bench_class = getattr(benchmarks, class_name)
-
-            # Inspect class constructor and create dict of input arguments
-            sig = inspect.signature(bench_class)
-            kwargs = {k: bench_config[k] for k in sig.parameters if k in bench_config}
-
-            # Init benchmark class using input args from config
-            bench = bench_class(**kwargs)
+            bench = get_benchmark(bench_config)
 
             for search_label, search_config in self.config["search"]["method"].items():
                 label = f"{name.lower()}/{search_label}"
                 self.run_search(bench, label, search_config)
+

@@ -5,7 +5,7 @@ import numpy as np
 from deephyper.hpo import HpProblem
 from cbbo_benchmarks.benchmark import HPOBenchmark
 from cbbo_benchmarks.scorer import HPOScorer
-from cbbo_benchmarks.utils import run_function
+from cbbo_benchmarks.utils import run_func
 
 
 def easom(x):
@@ -43,7 +43,7 @@ class EasomBenchmark(HPOBenchmark):
 
     @property
     def run_function(self):
-        return functools.partial(run_function, bb_func=easom)
+        return functools.partial(run_func, bb_func=easom)
 
     @property
     def scorer(self):

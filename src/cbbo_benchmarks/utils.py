@@ -8,7 +8,7 @@ from deephyper.evaluator import RunningJob
 
 
 @profile
-def run_function(job: RunningJob, bb_func, sleep=False, sleep_mean=60, sleep_noise=20) -> dict:  # noqa: D103
+def run_func(job: RunningJob, bb_func, sleep=False, sleep_mean=60, sleep_noise=20) -> dict:  # noqa: D103
     config = job.parameters
 
     if sleep:

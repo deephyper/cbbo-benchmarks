@@ -1,22 +1,19 @@
-"""Module to run CBBO benchmarks."""
+"""Module for Plotter class."""
 
-import inspect
 import os
 import pathlib
 import matplotlib.pyplot as plt
 import numpy as np
-import tomllib
 from deephyper.analysis import figure_size
 from deephyper.analysis.hpo import read_results_from_csv
-from . import benchmarks
+from .config import get_config, get_benchmark
 
 
 class Plotter:
     """Plotter class to plot benchmark results."""
 
     def __init__(self, config_path):
-        with open(config_path, "rb") as f:
-            self.config = tomllib.load(f)
+        self.config = get_config(config_path)
         self.root_path = os.getcwd()
         self.runs_path = os.path.join(self.root_path, "runs")
         self.plots_path = os.path.join(self.root_path, "plots")
@@ -182,18 +179,6 @@ class Plotter:
     def plot(self):
         """Plot everything."""
         for bench_config in self.config["benchmark"]:
-            name = bench_config["name"]
-            label = name.lower()
-
-            # Get benchmark class associated with the name
-            class_name = name + "Benchmark"
-            bench_class = getattr(benchmarks, class_name)
-
-            # Inspect class constructor and create dict of input arguments
-            sig = inspect.signature(bench_class)
-            kwargs = {k: bench_config[k] for k in sig.parameters if k in bench_config}
-
-            # Init benchmark class using input args from config
-            bench = bench_class(**kwargs)
-
+            label = bench_config["name"].lower()
+            bench = get_benchmark(bench_config)
             self.plot_benchmark(label, bench)
