@@ -9,7 +9,7 @@ from scipy.optimize import rosen
 from deephyper.hpo import HpProblem
 from cbbo_benchmarks.benchmark import HPOBenchmark
 from cbbo_benchmarks.scorer import HPOScorer
-from cbbo_benchmarks.utils import run_function
+from cbbo_benchmarks.utils import run_func
 
 
 def rosen_(x):  # noqa: D103
@@ -44,7 +44,7 @@ class RosenBenchmark(HPOBenchmark):
     @property
     def run_function(self):
         """Provide the run function for the hyperparameter benchmark."""
-        return functools.partial(run_function, bb_func=rosen_)
+        return functools.partial(run_func, bb_func=rosen_)
 
     @property
     def scorer(self):

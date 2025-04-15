@@ -5,7 +5,7 @@ import numpy as np
 from deephyper.hpo import HpProblem
 from cbbo_benchmarks.benchmark import HPOBenchmark
 from cbbo_benchmarks.scorer import HPOScorer
-from cbbo_benchmarks.utils import run_function
+from cbbo_benchmarks.utils import run_func
 
 
 def griewank(x, fr=4000):
@@ -70,7 +70,7 @@ class GriewankBenchmark(HPOBenchmark):
 
     @property
     def run_function(self):
-        return functools.partial(run_function, bb_func=griewank)
+        return functools.partial(run_func, bb_func=griewank)
 
     @property
     def scorer(self):

@@ -8,7 +8,7 @@ import numpy as np
 from deephyper.hpo import HpProblem
 from cbbo_benchmarks.benchmark import HPOBenchmark
 from cbbo_benchmarks.scorer import HPOScorer
-from cbbo_benchmarks.utils import run_function
+from cbbo_benchmarks.utils import run_func
 
 
 def michal(x, m=10):
@@ -56,7 +56,7 @@ class MichalBenchmark(HPOBenchmark):
     @property
     def run_function(self):
         """Provide the run function for the hyperparameter benchmark."""
-        return functools.partial(run_function, bb_func=michal)
+        return functools.partial(run_func, bb_func=michal)
 
     @property
     def scorer(self):

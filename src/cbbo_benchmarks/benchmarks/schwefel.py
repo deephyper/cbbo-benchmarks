@@ -8,7 +8,7 @@ import numpy as np
 from deephyper.hpo import HpProblem
 from cbbo_benchmarks.benchmark import HPOBenchmark
 from cbbo_benchmarks.scorer import HPOScorer
-from cbbo_benchmarks.utils import run_function
+from cbbo_benchmarks.utils import run_func
 
 
 def schwefel(x):
@@ -46,7 +46,7 @@ class SchwefelBenchmark(HPOBenchmark):
     @property
     def run_function(self):
         """Provide the run function for the hyperparameter benchmark."""
-        return functools.partial(run_function, bb_func=schwefel)
+        return functools.partial(run_func, bb_func=schwefel)
 
     @property
     def scorer(self):

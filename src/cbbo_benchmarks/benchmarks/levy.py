@@ -8,7 +8,7 @@ import numpy as np
 from deephyper.hpo import HpProblem
 from cbbo_benchmarks.benchmark import HPOBenchmark
 from cbbo_benchmarks.scorer import HPOScorer
-from cbbo_benchmarks.utils import run_function
+from cbbo_benchmarks.utils import run_func
 
 
 def levy(x):
@@ -50,7 +50,7 @@ class LevyBenchmark(HPOBenchmark):
     @property
     def run_function(self):
         """Provide the run function for the hyperparameter benchmark."""
-        return functools.partial(run_function, bb_func=levy)
+        return functools.partial(run_func, bb_func=levy)
 
     @property
     def scorer(self):
