@@ -1,3 +1,5 @@
+# This configuration uses an array for the benchmarks
+
 title = "CBBO Benchmark"
 
 benchmark = [

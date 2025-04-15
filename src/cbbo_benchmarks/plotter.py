@@ -179,6 +179,6 @@ class Plotter:
     def plot(self):
         """Plot everything."""
         for bench_config in self.config["benchmark"]:
-            label = bench_config["name"].lower()
+            label = bench_config["name"] if isinstance(bench_config, dict) else bench_config
             bench = get_benchmark(bench_config)
-            self.plot_benchmark(label, bench)
+            self.plot_benchmark(label.lower(), bench)

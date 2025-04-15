@@ -1,4 +1,4 @@
-# This configuration uses a table array for the benchmarks.
+# This configuration uses an array of tables for the benchmarks
 
 title = "CBBO Benchmark"
 
